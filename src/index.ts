@@ -13,7 +13,6 @@ const map = new mapgl.Map('map', {
     center: lngLatcenter,
     zoom: 16.8,
 });
-window.addEventListener('resize', () => map.invalidateSize());
 
 const camera = new THREE.Camera();
 camera.updateMatrixWorld = () => {};
@@ -21,9 +20,16 @@ camera.updateMatrixWorld = () => {};
 const renderer = new THREE.WebGLRenderer({
     canvas: document.getElementById('three') as HTMLCanvasElement,
     alpha: true,
-    antialias: true,
+    antialias: window.devicePixelRatio < 2,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+window.addEventListener('resize', () => {
+    map.invalidateSize();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+});
 
 const light = new THREE.AmbientLight(0x404040);
 
