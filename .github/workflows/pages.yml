@@ -1,7 +1,7 @@
 name: Build and deploy
 on:
   push:
-    branches: [main]
+    branches: [model]
 
 jobs:
   build-and-deploy:
@@ -21,7 +21,18 @@ jobs:
           npm ci
           npm run build
           mkdir public
-          cp -r dist index.html a5.glb public
+          cp -r dist index.html asia_building public
+
+      - name: Deploy 🚀
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: deploy
+          password: ${{ secrets.PASSWORD }}
+          source: "public/*"
+          target: "static-projects/mapgl-threejs-model"
+          strip_components: 1
+          rm: true
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
