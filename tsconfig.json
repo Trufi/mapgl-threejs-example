@@ -10,7 +10,6 @@
         "importHelpers": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "jsx": "react",
         "importsNotUsedAsValues": "preserve"
     }
 }
