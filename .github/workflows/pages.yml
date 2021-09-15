@@ -33,9 +33,3 @@ jobs:
           target: "static-projects/mapgl-threejs-model"
           strip_components: 1
           rm: true
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          branch: gh-pages
-          folder: public
